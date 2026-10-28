@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOAT Index — Career G/A Top 50</title>
+<style>
+:root{--bg:#080b12;--panel:#111827;--panel2:#151e2e;--line:#273449;--text:#eef4ff;--muted:#92a2bb;--lime:#c7ff4f;--cyan:#55e6d0;--gold:#ffc85a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 12% 0%,#18253b 0,transparent 36%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+header{max-width:1200px;margin:auto;padding:28px 22px 12px}.eyebrow{color:var(--lime);font-size:12px;letter-spacing:.18em;font-weight:800}.brand{font-size:clamp(30px,5vw,54px);font-weight:950;letter-spacing:-.055em;margin:10px 0}.brand span{color:var(--lime)}.sub{color:var(--muted);max-width:720px;line-height:1.6}
+main{max-width:1200px;margin:auto;padding:18px 22px 60px}.hero{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 24px}.stat,.controls,.tablewrap,.note{background:linear-gradient(145deg,#151f30,#0f1521);border:1px solid var(--line);border-radius:16px}.stat{padding:17px}.stat small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em}.stat strong{font-size:26px;display:block;margin-top:8px}.controls{padding:14px;display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:center}.controls input,.controls select{background:#0b111c;border:1px solid #34445d;color:var(--text);padding:12px 13px;border-radius:10px;outline:none}.controls input{flex:1;min-width:190px}.controls select{min-width:145px}.pill{border:1px solid #43546b;background:#192438;color:var(--text);padding:9px 12px;border-radius:99px;cursor:pointer}.pill.active{background:var(--lime);color:#111827;border-color:var(--lime);font-weight:800}.tablewrap{overflow:hidden}.tablehead{padding:18px 18px 14px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.tablehead h2{margin:0;font-size:19px}.tablehead p{margin:5px 0 0;color:var(--muted);font-size:12px}.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:820px}th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8fa1bb;text-align:right;padding:13px 14px;background:#0c1320;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}th:nth-child(1),th:nth-child(2){text-align:left}td{padding:12px 14px;border-bottom:1px solid #202c3d;text-align:right;font-variant-numeric:tabular-nums}tbody tr:hover{background:#182438}td:nth-child(1),td:nth-child(2){text-align:left}.rank{font-weight:900;color:#8ea0ba}.player{display:flex;align-items:center;gap:12px;min-width:230px}.avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#26364d;border:2px solid #33465f}.pname{font-weight:800}.meta{font-size:11px;color:var(--muted);margin-top:4px}.ga{font-size:19px;font-weight:950;color:var(--lime)}.g{color:#fff;font-weight:750}.a{color:var(--cyan);font-weight:750}.badge{display:inline-block;padding:5px 8px;border-radius:7px;background:#202d41;color:#c4d2e6;font-size:10px;font-weight:800}.foot{padding:15px 18px;color:var(--muted);font-size:12px;line-height:1.6}.note{padding:16px 18px;margin-top:14px;color:#a9b8ce;font-size:12px;line-height:1.65}.note strong{color:#fff}.empty{text-align:center;padding:36px;color:var(--muted)}.btn{cursor:pointer;background:var(--lime);color:#101620;border:0;border-radius:10px;padding:11px 14px;font-weight:900}.tiny{font-size:11px;color:var(--muted)}@media(max-width:700px){header{padding:22px 14px 8px}main{padding:12px 14px 40px}.hero{grid-template-columns:repeat(2,1fr)}.stat strong{font-size:22px}.controls input{flex-basis:100%}.controls select{flex:1}.brand{font-size:37px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="eyebrow">FOOTBALL • CAREER RECORDS</div>
+ <div class="brand">GOAT <span>INDEX.</span></div>
+ <div class="sub">The career goal contributions leaderboard. Compare legendary forwards and creators by goals, assists, appearances and total G/A — all in one place.</div>
+</header>
+<main>
+ <section class="hero">
+  <div class="stat"><small>Leaderboard</small><strong>TOP 50</strong></div>
+  <div class="stat"><small>Ranked by</small><strong>Total G/A</strong></div>
+  <div class="stat"><small>Player profiles</small><strong>50 photos</strong></div>
+  <div class="stat"><small>Data scope</small><strong>Senior career*</strong></div>
+ </section>
+ <section class="controls">
+  <input id="search" type="search" placeholder="Search player or nationality…" aria-label="Search players">
+  <select id="sort" aria-label="Sort leaderboard"><option value="ga">Sort: Total G/A</option><option value="goals">Sort: Goals</option><option value="assists">Sort: Assists</option><option value="games">Sort: Games</option><option value="ratio">Sort: G/A per game</option></select>
+  <select id="scope" aria-label="Competition scope"><option value="all">All players</option><option value="active">Active players</option><option value="retired">Retired players</option></select>
+  <button class="pill active" data-min="0">All</button><button class="pill" data-min="500">500+ G/A</button><button class="pill" data-min="800">800+ G/A</button>
+  <button class="btn" id="reset">Reset</button>
+ </section>
+ <section class="tablewrap">
+  <div class="tablehead"><div><h2>All-time career contributions</h2><p id="resultCount">Loading players…</p></div><span class="badge">UPDATED 28 OCT 2026 • SOURCE-DEPENDENT</span></div>
+  <div class="scroll"><table><thead><tr><th>#</th><th>Player</th><th>Goals</th><th>Assists</th><th>Total G/A</th><th>Games</th><th>G/A per game</th><th>Status</th></tr></thead><tbody id="rows"></tbody></table></div>
+  <div class="foot">*Career totals vary by source depending on whether friendlies, reserve matches and lower-division appearances are included. See the data note below before treating figures as official.</div>
+ </section>
+ <section class="note"><strong>Stats & accuracy note (checked 28 Oct 2026):</strong> Messi is updated to 936 goals, 408 assists and 1,182 senior appearances; Ronaldo to 983 goals, 261 assists and 1,342 appearances, based on a current stats comparison page. Assist totals vary by provider and historical records are incomplete, so these two rows are updated but the full Top 50 is NOT fully verified. Treat the remaining players’ figures as estimates, not exact official totals. Sources: <a style="color:#c7ff4f" href="https://www.messistat.com/en" target="_blank" rel="noopener">MessiStat (updated 28 Oct 2026)</a> and <a style="color:#c7ff4f" href="https://www.sportsadda.asia/football/features-football/cristiano-ronaldo-vs-lionel-messi-stats/" target="_blank" rel="noopener">SportsAdda comparison</a>. Player photos depend on external image services and may not load offline.</section>
+</main>
+<script>
+const players = [
+["Cristiano Ronaldo","Portugal",983,261,1342,"Active","Q11571"],
+["Lionel Messi","Argentina",936,408,1182,"Active","Q615"],
+["Pelé","Brazil",762,369,831,"Retired","Q12897"],
+["Romário","Brazil",756,115,963,"Retired","Q171614"],
+["Ferenc Puskás","Hungary",746,172,754,"Retired","Q483570"],
+["Josef Bican","Austria/Czechoslovakia",722,100,530,"Retired","Q171283"],
+["Robert Lewandowski","Poland",700,150,970,"Active","Q151396"],
+["Jimmy Jones","Northern Ireland",647,0,0,"Retired","Q3807770"],
+["Gerd Müller","Germany",632,102,673,"Retired","Q76418"],
+["Eusébio","Portugal",623,167,639,"Retired","Q171321"],
+["Luis Suárez","Uruguay",600,250,990,"Active","Q81887"],
+["Zlatan Ibrahimović","Sweden",570,228,988,"Retired","Q zing"],
+["Joe Bambrick","Northern Ireland",540,0,0,"Retired","Q6247775"],
+["Abe Lenstra","Netherlands",523,0,0,"Retired","Q312992"],
+["Zico","Brazil",525,245,729,"Retired","Q171466"],
+["Ferenc Deák","Hungary",500,0,0,"Retired","Q553132"],
+["Edinson Cavani","Uruguay",460,70,780,"Active","Q172871"],
+["Karim Benzema","France",480,190,950,"Active","Q163864"],
+["Neymar","Brazil",440,270,720,"Active","Q142794"],
+["Thomas Müller","Germany",250,280,750,"Active","Q48366"],
+["Thierry Henry","France",411,190,792,"Retired","Q45194"],
+["Raúl","Spain",404,116,741,"Retired","Q16454"],
+["Sergio Agüero","Argentina",385,118,786,"Retired","Q182448"],
+["Wayne Rooney","England",366,190,764,"Retired","Q193"],
+["Didier Drogba","Ivory Coast",365,126,679,"Retired","Q183"],
+["Harry Kane","England",450,110,720,"Active","Q1422"],
+["Kylian Mbappé","France",390,140,500,"Active","Q216219"],
+["Erling Haaland","Norway",300,60,370,"Active","Q433136"],
+["Antoine Griezmann","France",280,120,500,"Active","Q39348"],
+["Mohamed Salah","Egypt",300,130,400,"Active","Q2683"],
+["Alan Shearer","England",379,64,734,"Retired","Q192"],
+["Ronaldo Nazário","Brazil",414,100,616,"Retired","Q166126"],
+["Marco van Basten","Netherlands",300,90,373,"Retired","Q171457"],
+["Roberto Baggio","Italy",318,100,488,"Retired","Q171469"],
+["Francesco Totti","Italy",316,180,786,"Retired","Q171478"],
+["Andriy Shevchenko","Ukraine",342,75,654,"Retired","Q48367"],
+["David Villa","Spain",376,75,752,"Retired","Q160"],
+["Samuel Eto'o","Cameroon",359,100,724,"Retired","Q183"],
+["Ruud van Nistelrooy","Netherlands",347,60,589,"Retired","Q171490"],
+["Filippo Inzaghi","Italy",313,45,540,"Retired","Q171492"],
+["Hulk","Brazil",450,220,800,"Active","Q180905"],
+["Alexandre Pato","Brazil",180,60,300,"Active","Q182986"],
+["Cesc Fàbregas","Spain",110,220,500,"Retired","Q160"],
+["Kevin De Bruyne","Belgium",150,250,400,"Active","Q135509"],
+["Ángel Di María","Argentina",190,250,400,"Active","Q83441"],
+["Mesut Özil","Germany",90,220,260,"Retired","Q45921"],
+["Ryan Giggs","Wales",168,250,963,"Retired","Q184"],
+["Luis Figo","Portugal",170,150,400,"Retired","Q171497"],
+["David Beckham","England",129,200,265,"Retired","Q10520"],
+["Ronaldinho","Brazil",266,160,540,"Retired","Q17490"]
+];
+// Mark uncertain/incomplete appearance/assist data explicitly; values are source-dependent estimates.
+const data = players.map((p,i)=>({name:p[0],nation:p[1],goals:p[2],assists:p[3],games:p[4],status:p[5],qid:p[6],rank:i+1,ga:p[2]+p[3]}));
+let minGA=0;
+const $=id=>document.getElementById(id);
+function photoURL(qid){return ""}
+function initials(name){return name.split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase()}
+function render(){
+ const q=$("search").value.trim().toLowerCase(), sort=$("sort").value, scope=$("scope").value;
+ let list=data.filter(p=>(p.name+" "+p.nation).toLowerCase().includes(q)&&p.ga>=minGA&&(scope==="all"||p.status.toLowerCase()===scope));
+ list.sort((a,b)=>sort==="ratio"?(b.ga/(b.games||1)-a.ga/(a.games||1)):b[sort]-a[sort]);
+ $("resultCount").textContent=`Showing ${list.length} of ${data.length} players • totals are estimates`;
+ $("rows").innerHTML=list.map((p,i)=>`<tr><td class="rank">${i+1}</td><td><div class="player"><img class="avatar player-photo" loading="lazy" src="" data-player="${p.name.replace(/&/g,"&amp;").replace(/"/g,"&quot;")}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="avatar fallback" style="display:none;place-items:center;font-weight:900;color:#c7ff4f">${initials(p.name)}</span><div><div class="pname">${p.name}</div><div class="meta">${p.nation}</div></div></div></td><td class="g">${p.goals.toLocaleString()}</td><td class="a">${p.assists.toLocaleString()}</td><td class="ga">${p.ga.toLocaleString()}</td><td>${p.games?p.games.toLocaleString():"—"}</td><td>${p.games?(p.ga/p.games).toFixed(2):"—"}</td><td><span class="badge">${p.status}</span></td></tr>`).join("")||`<tr><td colspan="8" class="empty">No players match. Try another search or filter.</td></tr>`;
+ document.querySelectorAll("img[data-player]").forEach(img=>loadPlayerPhoto(img,img.dataset.player));
+}
+$("search").addEventListener("input",render);$("sort").addEventListener("change",render);$("scope").addEventListener("change",render);
+document.querySelectorAll("[data-min]").forEach(b=>b.addEventListener("click",()=>{minGA=+b.dataset.min;document.querySelectorAll("[data-min]").forEach(x=>x.classList.toggle("active",x===b));render()}));
+$("reset").addEventListener("click",()=>{$("search").value="";$("sort").value="ga";$("scope").value="all";minGA=0;document.querySelectorAll("[data-min]").forEach(x=>x.classList.toggle("active",x.dataset.min==="0"));render()});
+render();
+// Fetch the actual portrait thumbnail for each player from Wikipedia's public summary API.
+// Using the player name (rather than a Wikidata QID as a filename) fixes broken photo URLs.
+const photoCache = new Map();
+async function loadPlayerPhotos(){
+  const imgs=[...document.querySelectorAll('img.player-photo')];
+  for(const img of imgs){
+    const name=img.dataset.player;
+    if(!name || img.dataset.loaded==='1') continue;
+    img.dataset.loaded='1';
+    try{
+      let url=photoCache.get(name);
+      if(url===undefined){
+        const response=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(name.replace(/ /g,'_')));
+        if(!response.ok) throw new Error('No portrait');
+        const info=await response.json();
+        url=info.thumbnail && info.thumbnail.source ? info.thumbnail.source : null;
+        photoCache.set(name,url);
+      }
+      if(url){img.src=url;img.style.display='block';img.onload=()=>{img.nextElementSibling.style.display='none'};}
+      else {img.style.display='none';img.nextElementSibling.style.display='grid';}
+    }catch(e){img.style.display='none';img.nextElementSibling.style.display='grid';}
+  }
+}
+const observer=new MutationObserver(()=>loadPlayerPhotos());
+observer.observe(document.getElementById('rows'),{childList:true});
+loadPlayerPhotos();
+</script>
+</body>
+</html>
